@@ -1,5 +1,5 @@
 # wmf
-wmf（Windows Metafile）convert to svg support
+wmf（Windows Metafile）convert to svg support, No dependencies, Written in golang language
 
 # usage
 wmf.exe --in tiger.wmf --out tiger.svg
