@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wmf2svg</title>
+    <script src="wasm_exec.js"></script>
+    <script>
+        const go = new Go();
+        WebAssembly.instantiateStreaming(fetch("wmf.wasm"), go.importObject)
+            .then((result) => go.run(result.instance));
+
+
+        function parse() {
+            var input = window.document.getElementById("file")
+            if (input.files.length <= 0) {
+                return
+            }
+
+            var images = document.getElementById('images')
+            var reader = new FileReader();
+            reader.onload = function() {
+                var base64Svg = Wmf2Svg(reader.result)
+                images.innerHTML = '<img src="'+base64Svg+'" />'
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+
+    </script>
+</head>
+<body>
+<input id="file" type="file" title="select a wmf file" onchange="parse()"/>
+<div id="images">
+
+</div>
+</body>
+</html>
